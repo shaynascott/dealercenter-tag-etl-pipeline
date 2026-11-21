@@ -1,4 +1,3 @@
-# dealercenter-tag-etl-pipeline
 # DealerCenter Multi-Stream Tag & Compliance ETL Pipeline
 
 A zero-cost, serverless ETL (Extract, Transform, Load) pipeline built with **Google Apps Script (JavaScript)**, **Gmail Filters**, and **Google Sheets** to automate daily automotive tag and title compliance logging from DealerCenter.
