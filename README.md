@@ -38,7 +38,7 @@ A single config-driven `ROUTES` array maps each incoming compliance stream to it
 * **Leading-Zero Preservation:** Explicitly applies plain-text formatting (`@`) to Tag, Policy Number, and VIN Last Six columns prior to writing so Google Sheets never strips leading zeros.
 * **Non-Destructive Schema Design:** Isolates automated script writes to **Columns A–I**, reserving **Column J (`Title Number`)** exclusively for manual entry so daily runs never overwrite human-entered compliance data.
 * **Idempotent Email Processing:** Queries only `is:unread` threads per label and marks threads as read only after successful ingestion.
-
+* **Role-Based Access Control (RBAC) & Cell Governance:** Configured range-level sheet protections across all three compliance tabs so automated ingestion columns (**A–I**) are locked to the script owner, while leaving **Column J (`Title Number`)** unlocked and plain-text formatted for manual staff entry.
 ---
 
 ## Target Sheet Schema (Columns A–J)
@@ -72,3 +72,25 @@ A single config-driven `ROUTES` array maps each incoming compliance stream to it
 2. **Gmail:** Create filters matching each report's subject line to apply its corresponding label (`DealerCenter-PA-Passenger`, `DealerCenter-PA-Trucks`, `DealerCenter-OutOfState`). Leave emails **unread**.
 3. **Google Sheets:** Create a workbook with three tabs (`PA Passenger`, `PA Trucks`, `Out of State`) and add Columns A–J headers to Row 1.
 4. **Apps Script:** Open **Extensions → Apps Script**, paste `Code.gs`, authorize Gmail/Sheets permissions, and add a **Time-driven → Day timer** trigger (e.g., `10am to 11am`) targeting `importDealerCenterTags`.
+
+---
+
+## Pipeline Walkthrough & Proof of Execution
+
+### 1. Normalized 3-Tab Output Schema (Sanitized Dummy Data)
+> *Demonstrates 17-to-9 column normalization, optional cosigner handling, and leading-zero preservation across Policy Numbers and Title Numbers.*
+
+<img width="1225" height="751" alt="Screenshot 2026-11-21 132534" src="https://github.com/user-attachments/assets/c331ba55-b128-49c2-be9b-1d428401380c" />
+
+### 2. Role-Based Access Control (RBAC) & Cell Protection
+> *Non-owner accounts are blocked from modifying automated columns (A–I) while retaining edit access to Column J (`Title Number`).*
+
+<img width="1171" height="768" alt="Screenshot 2026-11-21 132629" src="https://github.com/user-attachments/assets/d53291a9-d43e-42c9-800f-f5c4e75d22e5" />
+
+### 3. Serverless Automation & Execution Logs
+> *Daily time-driven trigger (`10:00 AM – 11:00 AM`) with failure alerts and consecutive 2–4 second production runs.*
+
+<img width="968" height="829" alt="Screenshot 2026-11-21 132737" src="https://github.com/user-attachments/assets/0e24863d-a36a-4821-9855-d7e586209226" />
+
+<img width="1269" height="893" alt="Screenshot 2026-11-21 132757" src="https://github.com/user-attachments/assets/b69e06c1-d4e8-407b-afe3-af0abf8e74a2" />
+
