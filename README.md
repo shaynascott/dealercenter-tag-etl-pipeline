@@ -6,7 +6,7 @@ A zero-cost, serverless ETL (Extract, Transform, Load) pipeline built with **Goo
 ---
 
 ## The Problem
-Logging vehicle tags for state compliance (PennDOT / PA Passenger, PA Trucks, and Out-of-State Temp Tags) required manually re-entering 17+ fields—customer info, cosigner info, full addresses, insurance details, and VINs—from DealerCenter into separate spreadsheets. Because DealerCenter does not provide a public API or native Zapier integration, manual entry was slow, repetitive, and prone to transcription errors.
+Logging vehicle tags for state compliance (PennDOT / PA Passenger, PA Trucks, and Out-of-State Temp Tags) required manually re-entering 17+ fields such as customer info, cosigner info, full addresses, insurance details, and VINs from DealerCenter into separate spreadsheets. Because DealerCenter does not provide a public API or native Zapier integration, manual entry was slow, repetitive, and prone to transcription errors.
 
 ## The Solution
 I engineered a fully automated, event-routed ETL pipeline with **$0 software cost** that extracts daily filtered CSV reports from DealerCenter, routes them via Gmail labels, transforms and normalizes the schema in Google Apps Script, and loads deduplicated records into a centralized 3-tab Google Sheet.
